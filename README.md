@@ -50,7 +50,7 @@
 
     <div id="output"></div>
 
-    <script>
+        <script>
         function findStrings() {
             const sum = parseInt(prompt('Enter the sum:'), 10);
             let result = '';
@@ -58,8 +58,8 @@
             for (let i = 100; i > 0; i--) {
                 for (let j = 0; j < 100; j++) {
                     if ((17 * j + 18 * i) === sum) {
-                        result += `<p>A (18 string) = ${i}</p>`;
-                        result += `<p>B (17 string) = ${j}</p><br>`;
+                        result += `A (18 string) = ${i}<br>`;
+                        result += `B (17 string) = ${j}<br><br>`;
                     }
                 }
             }
