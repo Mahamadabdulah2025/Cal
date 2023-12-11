@@ -44,6 +44,8 @@
                         result += `A (18 string) = ${i}<br>`;
                         result += `B (17 string) = ${j}<br><br>`;
                     }
+                    else
+                    result +='Not Found';
                 }
             }
 
