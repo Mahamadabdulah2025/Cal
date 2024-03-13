@@ -14,7 +14,7 @@ Function findStrings() {
 
   let foundResults = false; // Flag to track if any results were found
 
-  for (let i = 100; i > -1; i--) {
+  for (let i = 100; i >=0; i--) {
 
     for (let j = 0; j < 100; j++) {
 
