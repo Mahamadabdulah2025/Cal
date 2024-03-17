@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>String Calculator (Divisible by 17 & 18)</title>
+    <title>String Calculator (Divisible by 17 & 18) with Particles</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,41 +13,62 @@
             text-align: center;
             margin-bottom: 20px;
         }
-/* Look, no Sass */
 
-.particle {
-  /* Starting values */
-  --angle: (5 * var(--index));
-  --radius: 30;
-  --x: calc(sin(var(--angle)) * var(--radius) * 1vmin);
-  --y: calc(cos(var(--angle)) * var(--radius) * 1vmin);
-
-  /* Ending values */
-  /* 
-  Had to move these outside the @keyframe and rename them 
-  because Chrome was being weird 
-  Bonusly, performance seems much better 
-  */
-  --angle2: calc(var(--index) * 1turn / var(--total));
-  --x2: calc(sin(var(--angle2)) * var(--radius) * 1vmin);
-  --y2: calc(cos(var(--angle2)) * var(--radius) * 1vmin);
-
-  --size: 5;
-  --speed: 3s;
-  --delay: calc(var(--index) * var(--speed) / var(--total) * 4);
-
-  --hue-angle: 10;
-  --hue-range: 60;
-  --hue-start: 20;
-
-  /* Animation */
-  animation: animation var(--speed) ease-out infinite alternate var(--delay);
         #output {
             border: 1px solid #ddd;
             padding: 10px;
             font-family: monospace;
             margin: 0 auto;  /* Center the output container */
             max-width: 500px;  /* Limit the output width for better readability */
+        }
+
+        /* Particle Styles */
+        .particle-container {
+            position: relative;  /* Position particles relative to this container */
+        }
+
+        .particle {
+            /* Starting values */
+            --angle: (5 * var(--index));
+            --radius: 30;
+            --x: calc(sin(var(--angle)) * var(--radius) * 1vmin);
+            --y: calc(cos(var(--angle)) * var(--radius) * 1vmin);
+
+            /* Ending values (moved outside the keyframe for better performance) */
+            --angle2: calc(var(--index) * 1turn / var(--total));
+            --x2: calc(sin(var(--angle2)) * var(--radius) * 1vmin);
+            --y2: calc(cos(var(--angle2)) * var(--radius) * 1vmin);
+
+            /* Other particle properties */
+            --size: 5px;
+            --speed: 3s;
+            --delay: calc(var(--index) * var(--speed) / var(--total) * 4);
+
+            --hue-angle: 10;
+            --hue-range: 60;
+            --hue-start: 20;
+
+            /* Animation */
+            animation: animation var(--speed) ease-out infinite alternate var(--delay);
+
+            /* Particle appearance */
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            background-color: hsl(calc(var(--hue-start) + var(--index) * var(--hue-range) / (var(--total) - 1)), 100%, 50%);
+            position: absolute;
+            top: calc(50% + var(--y));
+            left: calc(50% + var(--x));
+        }
+
+        /* Animation Keyframes */
+        @keyframes animation {
+            from {
+                transform: translate(var(--x), var(--y));
+            }
+            to {
+                transform: translate(var(--x2), var(--y2));
+            }
         }
     </style>
 </head>
@@ -56,8 +77,11 @@
     <button onclick="findStrings()">Run Program</button>
     <div id="output"></div>
 
-    <script>
-        function findStrings() {
+    <div class="particle-container">
+      <var total="30"></var>
+      </div>
+
+    <script>function findStrings() {
 
           const sum = parseInt(prompt('Enter the sum:'), 10);
 
@@ -74,7 +98,7 @@
             for (let j = 0; j < 100; j++) {
 
               // Check if divisible by both 17 and 18
-              if ((17 * j + 18 * i) === sum && (i % 18 === 0) && (j % 17 === 0)) {
+              if ((17 * j + 18 * i) === sum) {
 
                 foundResults = true; // Set flag if a result is found
 
@@ -111,6 +135,6 @@
           document.getElementById('output').innerHTML = result;
 
         }
-    </script>
+        </script>
 </body>
 </html>
