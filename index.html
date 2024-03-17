@@ -2,19 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>String Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>String Calculator (Divisible by 17 & 18)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+/* Look, no Sass */
+
+.particle {
+  /* Starting values */
+  --angle: (5 * var(--index));
+  --radius: 30;
+  --x: calc(sin(var(--angle)) * var(--radius) * 1vmin);
+  --y: calc(cos(var(--angle)) * var(--radius) * 1vmin);
+
+  /* Ending values */
+  /* 
+  Had to move these outside the @keyframe and rename them 
+  because Chrome was being weird 
+  Bonusly, performance seems much better 
+  */
+  --angle2: calc(var(--index) * 1turn / var(--total));
+  --x2: calc(sin(var(--angle2)) * var(--radius) * 1vmin);
+  --y2: calc(cos(var(--angle2)) * var(--radius) * 1vmin);
+
+  --size: 5;
+  --speed: 3s;
+  --delay: calc(var(--index) * var(--speed) / var(--total) * 4);
+
+  --hue-angle: 10;
+  --hue-range: 60;
+  --hue-start: 20;
+
+  /* Animation */
+  animation: animation var(--speed) ease-out infinite alternate var(--delay);
+        #output {
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-family: monospace;
+            margin: 0 auto;  /* Center the output container */
+            max-width: 500px;  /* Limit the output width for better readability */
+        }
+    </style>
 </head>
 <body>
     <h1>String Calculator (Divisible by 17 & 18)</h1>
     <button onclick="findStrings()">Run Program</button>
     <div id="output"></div>
 
-    <script src="script.js"></script>
-    <var total="360 * 3"></var>
-    .center(style=`--total: ${total}`)
-      - var i = total;
-      while i--
-        .particle(style=`--index: ${total - i}`)
+    <script>
+        function findStrings() {
+
+          const sum = parseInt(prompt('Enter the sum:'), 10);
+
+          let result = '';
+
+          let colorCounter = 0; // Counter to alternate colors
+
+          const colors = ['black', 'red', 'green', 'blue']; // Array of colors
+
+          let foundResults = false; // Flag to track if any results were found
+
+          for (let i = 100; i > 0; i--) {
+
+            for (let j = 0; j < 100; j++) {
+
+              // Check if divisible by both 17 and 18
+              if ((17 * j + 18 * i) === sum && (i % 18 === 0) && (j % 17 === 0)) {
+
+                foundResults = true; // Set flag if a result is found
+
+                const color = colors[colorCounter % colors.length]; // Select color
+
+                result += `<span style="color: ${color}">`; // Open span with color
+
+                result += `A (18 string) = ${i}<br>`;
+
+                result += `B (17 string) = ${j}<br>`;
+
+                result += `Total Sum  (18 x ${i} + 17 * ${j}) = ${i* 18 + 17 * j}<br>`;
+
+                result += `</span>`; // Close span
+
+                // Add dotted line with alternating color
+
+                const lineColor = colors[(colorCounter + 1) % colors.length];
+
+                result += `<hr style="border-top: 1px dashed ${lineColor}; margin: 5px 0;">`;
+
+                colorCounter++; // Increment color counter for next result
+
+              }
+
+            }
+
+          }
+
+          if (!foundResults) {
+            result = 'No combinations found for the entered sum that are divisible by both 17 and 18.';
+          }
+
+          document.getElementById('output').innerHTML = result;
+
+        }
+    </script>
 </body>
 </html>
