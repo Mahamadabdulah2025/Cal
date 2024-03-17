@@ -18,7 +18,7 @@ Function findStrings() {
 
     for (let j = 0; j < 100; j++) {
 
-      if ((17 * j + 18 * i) === sum || ( 18 * i + 17 * j) === sum)) {
+      if ((17 * j + 18 * i) === sum) {
 
         foundResults = true; // Set flag if a result is found
 
