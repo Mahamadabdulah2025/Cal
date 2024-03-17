@@ -4,7 +4,35 @@ body {
     padding: 20px;
     background-color: #f5f5f5;
 }
+/* Look, no Sass */
 
+.particle {
+  /* Starting values */
+  --angle: (5 * var(--index));
+  --radius: 30;
+  --x: calc(sin(var(--angle)) * var(--radius) * 1vmin);
+  --y: calc(cos(var(--angle)) * var(--radius) * 1vmin);
+
+  /* Ending values */
+  /* 
+  Had to move these outside the @keyframe and rename them 
+  because Chrome was being weird 
+  Bonusly, performance seems much better 
+  */
+  --angle2: calc(var(--index) * 1turn / var(--total));
+  --x2: calc(sin(var(--angle2)) * var(--radius) * 1vmin);
+  --y2: calc(cos(var(--angle2)) * var(--radius) * 1vmin);
+
+  --size: 5;
+  --speed: 3s;
+  --delay: calc(var(--index) * var(--speed) / var(--total) * 4);
+
+  --hue-angle: 10;
+  --hue-range: 60;
+  --hue-start: 20;
+
+  /* Animation */
+  animation: animation var(--speed) ease-out infinite alternate var(--delay);
 h1 {
     color: #333;
     text-align: center;
